@@ -1,0 +1,185 @@
+db.createCollection("avistamientos", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_avistamientos", "tiempo_registro", "id_perros", "latitud", "longitud"],
+            properties: {
+                id_avistamientos: {
+                    bsonType: "int",
+                    description: "identificador de un avistamiento"
+                },
+                tiempo_registro: {
+                    bsonType: "timestamp",
+                    description: "tiempo de registro del avistamiento"
+                },
+                id_perros: {
+                    bsonType: "int",
+                    description: "identificador del perro"
+                },
+                latitud: {
+                    bsonType: "decimal",
+                    description: "valor de la latitud"
+                },
+                longitud: {
+                    bsonType: "decimal",
+                    description: "valor de la longitud"
+                },
+            },
+        },
+    },
+});
+
+db.createCollection("perros", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_perros", "raza", "edad", "sexo", "esterilizado", "tipo_pelo", "longitud_pelo"],
+            properties: {
+                id_perros: {
+                    bsonType: "int",
+                    description: "identificador de un perro"
+                },
+                raza: {
+                    bsonType: "string",
+                    description: "nombre de la raza de un perro"
+                },
+                edad: {
+                    bsonType: "int",
+                    description: "edad de un perro"
+                },
+                sexo: {
+                    bsonType: "string",
+                    description: "sexo de un perro"
+                },
+                esterilizado: {
+                    bsonType: "bool",
+                    description: "si se a esterilizado o no el perro"
+                },
+                vacunado: {
+                    bsonType: "bool",
+                    description: "si se a vacunado o no el perro"
+                },
+                tipo_pelo: {
+                    bsonType: "string",
+                    description: "tipo de pelo del perro"
+                },
+                longitud_pelo: {
+                    bsonType: "string",
+                    description: "longitud de pelo del perro"
+                },
+            },
+        },
+    },
+});
+
+db.createCollection("duenos", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_duenos", "id_usuarios", "nombre_dueno", "apellido_dueno", "telefono", "correo", "id_alojantes"],
+            properties: {
+                id_duenos: {
+                    bsonType: "int",
+                    description: "identificador de un dueño"
+                },
+                id_usuarios: {
+                    bsonType: "int",
+                    description: "identificador de un usuario"
+                },
+                nombre_dueno: {
+                    bsonType: "string",
+                    description: "nombre del dueño"
+                },
+                apellido_dueno: {
+                    bsonType: "string",
+                    description: "apellido del dueño"
+                },
+                dni: {
+                    bsonType: "int",
+                    description: "dni del dueño"
+                },
+                telefono: {
+                    bsonType: "int",
+                    description: "numero de telefono del dueño"
+                },
+                correo: {
+                    bsonType: "string",
+                    description: "correo del dueño"
+                },
+                id_alojantes: {
+                    bsonType: "int",
+                    description: "identificador del alojante"
+                },
+            },
+        },
+    },
+});
+
+db.createCollection("enfermedades", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_enfermedades", "nombre", "descripcion"],
+            properties: {
+                id_enfermedades: {
+                    bsonType: "int",
+                    description: "identificador de una enfermedad"
+                },
+                nombre: {
+                    bsonType: "string",
+                    description: "nombre de la enfermedad"
+                },
+                descripcion: {
+                    bsonType: "string",
+                    description: "descripcion de la enfermedad"
+                },
+                rasgo_visible: {
+                    bsonType: "string",
+                    description: "rasgo visible de la enfermedad"
+                },
+            },
+        },
+    },
+});
+
+db.createCollection("usuarios", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_usuarios", "usuario", "contrasena"],
+            properties: {
+                id_usuarios: {
+                    bsonType: "int",
+                    description: "identificador de un usuario"
+                },
+                usuario: {
+                    bsonType: "string",
+                    description: "nombre de un usuario"
+                },
+                contrasena: {
+                    bsonType: "string",
+                    description: "contraseña de un usuario"
+                },
+            },
+        },
+    },
+});
+
+db.createCollection("alojantes_perros_alojados", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_alojantes", "id_perros_alojados"],
+            properties: {
+                id_alojantes: {
+                    bsonType: "int",
+                    description: "identificado del alojante"
+                },
+                id_perros_alojados: {
+                    bsonType: "int",
+                    description: "identificador del perro alojado"
+                },
+            },
+        },
+    },
+});

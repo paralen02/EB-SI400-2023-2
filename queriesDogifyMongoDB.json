@@ -1,0 +1,69 @@
+/* Queries all mongoDB Dogify */
+
+// Ordenar razas de perro de la mas comun a la menos comun
+
+db.getCollection("perros").aggregate([
+    {
+      $group: {
+        _id: "$raza",
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { count: -1 } },
+  ]);
+
+
+ // Ver total cantidad total de avistamientos
+
+db.getCollection("avisamientos").aggregate([
+  {
+    $group: {
+      _id: "$id_perros",
+      count: { $sum: 1 },
+    },
+  },
+  { $sort: { count: -1 } },
+]);
+
+
+//Encontrar todos los alojantes que han alojado más de un perro:
+db.getCollection("alojantes_perros_alojados").aggregate([
+    {
+        $group: {
+            _id: "$id_alojantes",
+            count: { $sum: 1 },
+        },
+    },
+    { $match: { count: { $gt: 1 } } },
+]);
+
+//Encontrar todos los perros que han sido avistados pero aún no han sido alojados:
+db.getCollection("avistamientos").find(
+    { id_perros_alojados:
+        { $exists: false }
+});
+
+//enfermedades por un rasgo visible
+db.enfermedades.find({rasgo_visible: "fiebre"})
+
+//mostrar por cada avistamiento solo el tiempo de registro
+db.avistamientos.find({}, { tiempo_registro: 1, _id: 0 })
+
+//mostrar todos los usuarios registrados
+db.usuarios.find({}, { _id: 0 })
+
+//mostrar las razas de perro existen dentro de la base de datos y cuantos perros tienen esa raza
+db.perros.aggregate([
+    {
+        $group: {
+            _id: "$raza",
+            cantidad: { $sum: 1 }
+        }
+    }
+])
+
+//Buscar todos los avistamientos de un perro específico:
+db.avistamientos.find({ id_perros: <id_del_perro> })
+
+//Buscar perros que no han sido avistados aún:
+db.perros.find({ id_perros: { $nin: db.avistamientos.distinct("id_perros") } })
